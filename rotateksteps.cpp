@@ -29,6 +29,10 @@ Node* reverseksteps(Node* &head,int k) {
         n++;    //find length
         tail = tail->next;   // poin to last
     }
+    k=k%n;
+    if(k==0) {
+        return head;
+    }
     tail->next = head;   //last point to head
     Node* temp = head;
     for(int i=0;i<n-k;i++) {

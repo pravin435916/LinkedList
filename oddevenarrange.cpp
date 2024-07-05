@@ -22,27 +22,28 @@ void insertAtEnd(Node* &head,int val) {  //o(n)
     }
     temp->next = new_node;
 }
-int middle(Node* &head) {
-    Node* slow = head;
-    Node* fast = head;
-    while(fast!=NULL && fast->next!=NULL){
-        slow = slow->next;
-        fast = fast->next->next;
+void oddEvenArrangement(Node* &head) {
+    if (head == NULL || head->next == NULL) {
+        // No need to rearrange if the list is empty or has only one element
+        return;
     }
-    return slow->val;
+
+    Node* oddhead = head;
+    Node* evnhead = head->next;
+    Node* evenptr = evnhead;
+
+    while (oddhead != NULL && oddhead->next != NULL) {
+        oddhead = oddhead->next->next;
+    }
+
+    if (oddhead != NULL) {
+        oddhead->next = evenptr;
+    }
+
+    while (evnhead != NULL && evnhead->next != NULL) {
+        evnhead = evnhead->next->next;
+    }
 }
-void middleNode(Node* head) {
-        Node* slow = head;
-         Node* fast = head->next;
-         while(fast || fast->next) {
-             slow = slow->next;
-             fast = fast->next->next;
-         }
-         while(slow) {
-            cout << slow->val;
-             slow = slow->next;
-         }
-    }
 
 void display(Node* head) {
     Node* temp = head;
@@ -60,10 +61,9 @@ int main()
    insertAtEnd(head,3);
    insertAtEnd(head,4);
    insertAtEnd(head,5);
+   insertAtEnd(head,6);
    display(head);
-   int mid = middle(head);
-   cout<<"Mid : "<<mid<<endl;
-   middleNode(head);
+   oddEvenArrangement(head);
    display(head);
     return 0;
 }

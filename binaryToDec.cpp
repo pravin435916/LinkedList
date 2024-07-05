@@ -1,4 +1,5 @@
  #include <iostream>
+  #include <cmath>
 using namespace std;
 class Node{
    public:
@@ -22,26 +23,24 @@ void insertAtEnd(Node* &head,int val) {  //o(n)
     }
     temp->next = new_node;
 }
-int middle(Node* &head) {
-    Node* slow = head;
-    Node* fast = head;
-    while(fast!=NULL && fast->next!=NULL){
-        slow = slow->next;
-        fast = fast->next->next;
-    }
-    return slow->val;
-}
-void middleNode(Node* head) {
-        Node* slow = head;
-         Node* fast = head->next;
-         while(fast || fast->next) {
-             slow = slow->next;
-             fast = fast->next->next;
-         }
-         while(slow) {
-            cout << slow->val;
-             slow = slow->next;
-         }
+// int getDecimal(Node* &head) {
+//     Node* temp = head;
+//     int sum = 0;
+//     int power = 0;
+//     while(temp!=NULL){
+//         sum = temp->val + pow(2,power);
+//         temp = temp->next;
+//         power++;
+//     }
+//     return sum;
+// }
+ int getDecimal(Node* head) {
+        int sum = 0;
+        while (head != nullptr) { 
+            sum = (sum << 1) + head->val; //another approach left shift 
+            head = head->next;
+        }
+        return sum;
     }
 
 void display(Node* head) {
@@ -56,14 +55,11 @@ int main()
 {
    Node* head = NULL;
    insertAtHead(head,1);
-   insertAtEnd(head,2);
-   insertAtEnd(head,3);
-   insertAtEnd(head,4);
-   insertAtEnd(head,5);
+   insertAtEnd(head,0);
+   insertAtEnd(head,1);
    display(head);
-   int mid = middle(head);
-   cout<<"Mid : "<<mid<<endl;
-   middleNode(head);
-   display(head);
+   int dec = getDecimal(head);
+   cout<<"dec : "<<dec<<endl;
+   cout << (2 >> 1) <<endl;
     return 0;
 }

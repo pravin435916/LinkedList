@@ -22,27 +22,32 @@ void insertAtEnd(Node* &head,int val) {  //o(n)
     }
     temp->next = new_node;
 }
-int middle(Node* &head) {
-    Node* slow = head;
-    Node* fast = head;
-    while(fast!=NULL && fast->next!=NULL){
-        slow = slow->next;
-        fast = fast->next->next;
+Node* ReverseLinkedList(Node* head, int k) {
+    Node* first = new Node(-1);
+    first->next = head;
+    head = first;
+    Node* front;
+    while(first->next) {
+        int x = k;
+        Node* sec = first->next;
+        Node* prev = first;
+        Node* cur = first->next;
+        while(x-- && cur) {
+        front = cur->next;
+        cur->next = prev;
+        prev = cur;
+        cur = front;
+        }
+     
+    first->next = prev;
+    sec->next = cur;
+    first = sec;
     }
-    return slow->val;
+    first = head;
+    head = head->next;
+
+    return head;
 }
-void middleNode(Node* head) {
-        Node* slow = head;
-         Node* fast = head->next;
-         while(fast || fast->next) {
-             slow = slow->next;
-             fast = fast->next->next;
-         }
-         while(slow) {
-            cout << slow->val;
-             slow = slow->next;
-         }
-    }
 
 void display(Node* head) {
     Node* temp = head;
@@ -60,10 +65,9 @@ int main()
    insertAtEnd(head,3);
    insertAtEnd(head,4);
    insertAtEnd(head,5);
-   display(head);
-   int mid = middle(head);
-   cout<<"Mid : "<<mid<<endl;
-   middleNode(head);
-   display(head);
+   insertAtEnd(head,6);
+   Node* prev = NULL;
+   Node* head1 = ReverseLinkedList(head,3);
+   display(head1);
     return 0;
 }
